@@ -37,13 +37,13 @@ def estimasi_air(data, umur_input):
 
 # UI
 st.set_page_config(page_title="HydroCalc", page_icon="💧")
-st.title("💧 HydroCalc - Kalkulator Kebutuhan Air Tanaman")
 
-st.markdown(
-    "Masukkan umur tanaman dan luas lahan. "
-)
+st.markdown("<h1 style='text-align: center; color: #2c7be5;'>💧 HydroCalc</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Kalkulator kebutuhan air tanaman berbasis data umur & jenis tanaman</p>", unsafe_allow_html=True)
+st.markdown("---")
 
-tanaman = st.selectbox("Pilih tanaman:", list(kebutuhan_air.keys()))
+st.markdown("### Masukkan Data Tanaman:")
+tanaman = st.selectbox("Pilih jenis tanaman:", list(kebutuhan_air.keys()))
 umur = st.number_input("Masukkan umur tanaman (hari):", min_value=1, step=1)
 luas = st.number_input("Masukkan luas lahan (m²):", min_value=1.0, step=1.0)
 
@@ -56,27 +56,29 @@ if st.button("Hitung Kebutuhan Air"):
         air_per_m2 = air_ml_per_100m2 / 100
         total_liter = air_per_m2 * luas / 1000
 
-        st.success(f"Kebutuhan air untuk {tanaman} umur {umur} hari pada lahan {luas:.1f} m² adalah: **{total_liter:.2f} liter**")
+        st.markdown(f"<div style='padding:10px;background:#e6f4ea;border-left:6px solid #34a853;'>"
+                    f"<b>Hasil:</b> Kebutuhan air untuk <b>{tanaman}</b> umur <b>{umur} hari</b> pada lahan <b>{luas:.1f} m²</b> adalah:<br>"
+                    f"<h3 style='color:#34a853'>{total_liter:.2f} liter</h3></div>", unsafe_allow_html=True)
 
         if interpolasi:
             st.info("⚠️ Hasil merupakan estimasi interpolasi karena umur tidak ada dalam data.")
 
-        # Buat grafik
+        st.markdown("### 📈 Grafik Kebutuhan Air per Umur Tanaman")
+
         data = kebutuhan_air[tanaman]
         x_data = list(data.keys())
         y_data = list(data.values())
 
         fig, ax = plt.subplots()
         ax.plot(x_data, y_data, marker='o', linestyle='-', color='blue', label='Data asli')
+        ax.axvline(x=umur, color='red', linestyle='--', label='Umur yang dipilih')
         ax.set_xlabel("Umur Tanaman (hari)")
         ax.set_ylabel("Kebutuhan Air (ml / 100m²)")
         ax.set_title(f"Kurva Kebutuhan Air - {tanaman}")
         ax.grid(True)
-
-        # Tambahkan titik umur input user
-        ax.axvline(x=umur, color='red', linestyle='--', label='Umur yang dipilih')
         ax.legend()
 
         st.pyplot(fig)
 
-st.caption("© 2025 HydroCalc | Dibuat dengan Python + Streamlit + Matplotlib")
+st.markdown("---")
+st.caption("© 2025 HydroCalc | Dibuat oleh Tio M - Proyek Smart Farming")
