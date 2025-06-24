@@ -1,6 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-import time  # tambahan
+import time
 
 # Data kebutuhan air (ml/100m²)
 kebutuhan_air = {
@@ -21,20 +21,18 @@ kebutuhan_air = {
 def estimasi_air(data, umur_input):
     umur_tersedia = sorted(data.keys())
     if umur_input in data:
-        return data[umur_input], None
+        return data[umur_input]
 
     bawah = max([u for u in umur_tersedia if u < umur_input], default=None)
     atas = min([u for u in umur_tersedia if u > umur_input], default=None)
 
     if bawah is None or atas is None:
-        return None, None
+        return None
 
     y_bawah = data[bawah]
     y_atas = data[atas]
     proporsi = (umur_input - bawah) / (atas - bawah)
-    estimasi = y_bawah + (y_atas - y_bawah) * proporsi
-
-    return estimasi, (bawah, atas, y_bawah, y_atas, estimasi)
+    return y_bawah + (y_atas - y_bawah) * proporsi
 
 # UI
 st.set_page_config(page_title="HydroCalc", page_icon="💧")
@@ -50,9 +48,9 @@ luas = st.number_input("Masukkan luas lahan (m²):", min_value=1.0, step=1.0)
 
 if st.button("Hitung Kebutuhan Air"):
     with st.spinner("💡 Menghitung kebutuhan air..."):
-        time.sleep(2)  # jeda proses selama 2 detik
+        time.sleep(2)
 
-        air_ml_per_100m2, interpolasi_data = estimasi_air(kebutuhan_air[tanaman], umur)
+        air_ml_per_100m2 = estimasi_air(kebutuhan_air[tanaman], umur)
 
         if air_ml_per_100m2 is None:
             st.error("Umur tanaman terlalu kecil atau terlalu besar dari data yang tersedia.")
@@ -63,16 +61,6 @@ if st.button("Hitung Kebutuhan Air"):
             st.markdown(f"<div style='padding:10px;background:#e6f4ea;border-left:6px solid #34a853; color:#000;'>"
                         f"<b>Hasil:</b> Kebutuhan air untuk <b>{tanaman}</b> umur <b>{umur} hari</b> pada lahan <b>{luas:.1f} m²</b> adalah:<br>"
                         f"<h3 style='color:#34a853'>{total_liter:.2f} liter</h3></div>", unsafe_allow_html=True)
-
-            if interpolasi_data:
-                bawah, atas, y_bawah, y_atas, estimasi = interpolasi_data
-                st.markdown(f"""
-                📌 Estimasi berdasarkan interpolasi:
-                - Umur lebih rendah: {bawah} hari → {y_bawah:,.0f} ml
-                - Umur lebih tinggi: {atas} hari → {y_atas:,.0f} ml
-                - Umur yang dimasukkan: {umur} hari
-                - Estimasi hasil interpolasi: {estimasi:,.2f} ml / 100 m²
-                """)
 
             st.markdown("### 📈 Grafik Kebutuhan Air per Umur Tanaman")
 
