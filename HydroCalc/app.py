@@ -41,8 +41,6 @@ st.title("💧 HydroCalc - Kalkulator Kebutuhan Air Tanaman")
 
 st.markdown(
     "Masukkan umur tanaman dan luas lahan. "
-    "Jika umur tidak tersedia, sistem akan memperkirakan nilai menggunakan interpolasi. "
-    "Grafik di bawah membantu memahami perubahan kebutuhan air berdasarkan umur tanaman."
 )
 
 tanaman = st.selectbox("Pilih tanaman:", list(kebutuhan_air.keys()))
