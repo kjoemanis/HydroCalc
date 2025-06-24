@@ -1,5 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import time  # tambahan
 
 # Data kebutuhan air (ml/100m²)
 kebutuhan_air = {
@@ -49,6 +50,8 @@ luas = st.number_input("Masukkan luas lahan (m²):", min_value=1.0, step=1.0)
 
 if st.button("Hitung Kebutuhan Air"):
     with st.spinner("💡 Menghitung kebutuhan air..."):
+        time.sleep(2)  # jeda proses selama 2 detik
+
         air_ml_per_100m2, interpolasi_data = estimasi_air(kebutuhan_air[tanaman], umur)
 
         if air_ml_per_100m2 is None:
