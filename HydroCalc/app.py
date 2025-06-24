@@ -58,7 +58,7 @@ if st.button("Hitung Kebutuhan Air"):
 
         st.markdown(f"<div style='padding:10px;background:#e6f4ea;border-left:6px solid #34a853;'>"
                     f"<b>Hasil:</b> Kebutuhan air untuk <b>{tanaman}</b> umur <b>{umur} hari</b> pada lahan <b>{luas:.1f} m²</b> adalah:<br>"
-                    f"<h3 style='color:#000000'>{total_liter:.2f} liter</h3></div>", unsafe_allow_html=True)
+                    f"<h3 style='color:'#000000'>{total_liter:.2f} liter</h3></div>", unsafe_allow_html=True)
 
         st.markdown("### 📈 Grafik Kebutuhan Air per Umur Tanaman")
 
