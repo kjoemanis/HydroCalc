@@ -45,7 +45,7 @@ st.markdown(
     "Grafik di bawah membantu memahami perubahan kebutuhan air berdasarkan umur tanaman."
 )
 
-tanaman = st.selectbox("Pilih jenis tanaman:", list(kebutuhan_air.keys()))
+tanaman = st.selectbox("Pilih tanaman:", list(kebutuhan_air.keys()))
 umur = st.number_input("Masukkan umur tanaman (hari):", min_value=1, step=1)
 luas = st.number_input("Masukkan luas lahan (m²):", min_value=1.0, step=1.0)
 
