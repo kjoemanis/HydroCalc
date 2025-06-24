@@ -79,4 +79,4 @@ if st.button("Hitung Kebutuhan Air"):
         st.pyplot(fig)
 
 st.markdown("---")
-st.caption("© 2025 HydroCalc | Dibuat oleh Tio M - Proyek Smart Farming")
+st.caption("© 2025 HydroCalc | Dibuat dengan Python")
