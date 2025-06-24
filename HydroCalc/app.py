@@ -56,9 +56,10 @@ if st.button("Hitung Kebutuhan Air"):
         air_per_m2 = air_ml_per_100m2 / 100
         total_liter = air_per_m2 * luas / 1000
 
-        st.markdown(f"<div style='padding:10px;background:#e6f4ea;border-left:6px solid #34a853;'>"
-                    f"<b>Hasil:</b> Kebutuhan air untuk <b>{tanaman}</b> umur <b>{umur} hari</b> pada lahan <b>{luas:.1f} m²</b> adalah:<br>"
-                    f"<h3 style='color:#34a853'>{total_liter:.2f} liter</h3></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='padding:10px;background:#e6f4ea;border-left:6px solid #34a853; color:#000;'>"
+            f"<b>Hasil:</b> Kebutuhan air untuk <b>{tanaman}</b> umur <b>{umur} hari</b> pada lahan <b>{luas:.1f} m²</b> adalah:<br>"
+            f"<h3 style='color:#34a853'>{total_liter:.2f} liter</h3></div>", unsafe_allow_html=True)
+
 
         st.markdown("### 📈 Grafik Kebutuhan Air per Umur Tanaman")
 
